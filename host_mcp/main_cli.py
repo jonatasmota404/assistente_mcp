@@ -86,6 +86,13 @@ def main():
                         print(f"\n[Assistente] ❌ Erro: {response.get('message') or response.get('error')}")
                 else:
                     print("[Assistente] Por favor, especifique o ID da tarefa que deseja concluir.")
+            
+            elif intent == "COMPLETE_TASK_BY_DESCRIPTION":
+                response = local_utils_client.call_complete_task_by_description(**params)
+                if response and response.get("success"):
+                    print(f"\n[Assistente] ✅ Tarefa '{response['task']['description']}' marcada como concluída!")
+                else:
+                    print(f"\n[Assistente] ❌ Erro: {response.get('message') or response.get('error')}")
 
             elif intent == "LIST_FILES":
                 response = local_utils_client.call_list_files(**params)

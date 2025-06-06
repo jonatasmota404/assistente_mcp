@@ -131,6 +131,16 @@ def list_workspace_files(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erro interno ao listar arquivos: {e}")
 
+@app.post("/tools/tasks/complete_by_description", response_model=TaskActionResponse, summary="Completa uma tarefa por descrição")
+def complete_task_by_description(description_hint: str = Body(..., embed=True)):
+    """
+    Encontra uma tarefa pendente por uma dica de descrição e a marca como concluída.
+    """
+    result = task_logic.handle_complete_task_by_description(description_hint)
+    if not result["success"]:
+        raise HTTPException(status_code=404, detail=result["message"])
+    return result
+
 # --- Ponto de Execução do Servidor (para Debug) ---
 if __name__ == "__main__":
     print("Iniciando o servidor Uvicorn para desenvolvimento...")

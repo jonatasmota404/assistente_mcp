@@ -50,3 +50,30 @@ def handle_update_task_status(task_id: int, new_status: str) -> dict:
         return {"success": True, "message": f"Tarefa {task_id} atualizada para '{new_status}'.", "task": updated_task}
     else:
         return {"success": False, "message": f"Tarefa com ID {task_id} não encontrada.", "task": None}
+    
+
+def handle_complete_task_by_description(description_hint: str) -> dict:
+    """
+    Encontra uma tarefa pendente que corresponda a uma descrição e a marca como concluída.
+    """
+    pending_tasks = db_manager.get_tasks_db(status='pendente')
+    
+    best_match = None
+    # Lógica de correspondência simples: procura a primeira tarefa que contém a dica.
+    for task in pending_tasks:
+        if description_hint.lower() in task['description'].lower():
+            best_match = task
+            break # Encontramos uma, podemos parar
+            
+    if not best_match:
+        return {"success": False, "message": f"Nenhuma tarefa pendente encontrada com a descrição parecida com '{description_hint}'.", "task": None}
+        
+    # Se encontramos, usamos a função de atualização existente
+    task_id_to_complete = best_match['id']
+    updated_task = db_manager.update_task_status_db(task_id_to_complete, "concluída")
+    
+    if updated_task:
+        return {"success": True, "message": f"Tarefa '{updated_task['description']}' marcada como concluída.", "task": updated_task}
+    else:
+        # Caso raro, mas para segurança
+        return {"success": False, "message": "Erro ao atualizar a tarefa encontrada.", "task": None}

@@ -60,3 +60,14 @@ def call_list_files(subfolder: str | None = None, extension_filter: str | None =
         return response.json()
     except requests.exceptions.RequestException as e:
         return {"error": f"Erro de conexão com o servidor: {e}"}
+
+
+def call_complete_task_by_description(description_hint: str):
+    """Chama o endpoint para completar uma tarefa por descrição."""
+    try:
+        payload = {"description_hint": description_hint}
+        response = requests.post(f"{SERVER_BASE_URL}/tools/tasks/complete_by_description", json=payload)
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        return {"error": f"Erro de conexão com o servidor: {e}"}
