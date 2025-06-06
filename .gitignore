@@ -12,3 +12,5 @@ __pycache__/
 # Arquivos de Banco de Dados SQLite
 *.db
 *.db-journal
+
+mcp_workspace_demo

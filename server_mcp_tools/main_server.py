@@ -5,16 +5,16 @@ import uvicorn
 # --- Importando todos os nossos módulos ---
 
 # Importando a lógica de cada ferramenta
-from tools_logic import system_info_logic, task_logic, file_system_logic
+from .tools_logic import system_info_logic, task_logic, file_system_logic
 
 # Importando os modelos Pydantic para validação
-from models_pydantic import (
+from .models_pydantic import (
     AddTaskRequest, UpdateTaskStatusRequest, TaskActionResponse,
     FileListResponse, TaskResponse
 )
 
 # Importando o gerenciador de banco de dados para a inicialização
-from data_storage import db_manager
+from .data_storage import db_manager
 
 # --- Configuração Inicial da Aplicação FastAPI ---
 
