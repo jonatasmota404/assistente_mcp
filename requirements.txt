@@ -1,0 +1,10 @@
+# Para o Servidor MCP (FastAPI, Uvicorn)
+fastapi
+uvicorn[standard]
+pydantic
+
+# Para o Host MCP (Cliente HTTP, LLM)
+requests
+google-generativeai # Alterado de 'openai'
+python-dotenv
+wheel
