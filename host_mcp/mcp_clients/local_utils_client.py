@@ -2,7 +2,7 @@ import requests
 import json
 
 # A URL base do nosso servidor. Se você rodar em outra porta, altere aqui.
-SERVER_BASE_URL = "http://127.0.0.1:8000"
+SERVER_BASE_URL = "http://localhost:8000"
 
 def call_get_datetime():
     """Chama o endpoint para obter a data e hora do servidor."""
